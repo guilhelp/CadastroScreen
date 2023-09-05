@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.DatePicker
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -166,18 +167,19 @@ fun TelaInput() { // Componente Input
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Formulário simples
+        val textNome = rememberSaveable { mutableStateOf("") }
         TextField(
-            value = "",
-            onValueChange = {},
+            value = textNome.value,
+            onValueChange = { textNome.value = it },
             label = { Text("Nome") },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
         )
-
+        val textTel = rememberSaveable { mutableStateOf("") }
         TextField(
-            value = "",
-            onValueChange = { },
+            value = textTel.value,
+            onValueChange = { textTel.value = it },
             label = { Text("Telefone") },
             modifier = Modifier
                 .fillMaxWidth()
@@ -261,19 +263,21 @@ fun TelaInput() { // Componente Input
                 })
             }
         }
-
-        val text = rememberSaveable { mutableStateOf("") }
+        val textObs = rememberSaveable { mutableStateOf("") }
         TextField(
-            value = text.value,
-            onValueChange = { text.value = it }, modifier = Modifier
+            value = textObs.value,
+            onValueChange = { textObs.value = it }, modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)
                 .padding(10.dp)
                 .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(8.dp)),
             label = { Text("Observação") },
         )
+        val tag = "ButtonWithLog"
         Button(
-            onClick = { /* Implemente a lógica do botão aqui */ },
+            onClick = {
+                Log.d(tag, "Botão 'Cadastrar' clicado")
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
@@ -281,7 +285,9 @@ fun TelaInput() { // Componente Input
             Text("Cadastrar")
         }
         Button(
-            onClick = { /* Implemente a lógica do botão aqui */ },
+            onClick = {
+                Log.d(tag, "Botão 'Cancelar' clicado")
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
